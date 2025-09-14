@@ -9,5 +9,16 @@ app.config.from_object(Config)
 def index():
     return render_template('index.html')
 
+@app.route('/test-db')
+def test_db():
+    from conexion_db import obtener_conexion
+    try:
+        conn = obtener_conexion()
+        conn.close()
+        return "✅ Conexión a la base de datos exitosa!"
+    except Exception as e:
+        return f"❌ Error de conexión: {e}"
+
+
 if __name__ == "__main__":
     app.run(debug=True)
